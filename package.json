@@ -1,0 +1,17 @@
+{
+  "name": "readpage",
+  "version": "1.0.0",
+  "description": "ReadPage · Nesux: escucha cualquier página web en voz, en cola, con presentación y tiempos.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "jsdom": "^29.1.1"
+  }
+}

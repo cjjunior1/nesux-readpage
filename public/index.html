@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ReadPage · Nesux</title>
+<meta name="description" content="Escucha cualquier página web, PDF, libro o foto de texto en voz natural. Cola de lecturas, traductor y listas para compartir.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ReadPage · Nesux">
+<meta property="og:title" content="ReadPage · Escucha cualquier página en voz">
+<meta property="og:description" content="Escucha cualquier página web, PDF, libro o foto de texto en voz natural. Cola de lecturas, traductor y listas para compartir.">
+<meta property="og:image" content="https://readpage.nesuxglobalbusinessrd.com/og-readpage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://readpage.nesuxglobalbusinessrd.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://readpage.nesuxglobalbusinessrd.com/og-readpage.jpg">
+<meta name="theme-color" content="#0B1220">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css?v=56">
+</head>
+<body>
+<header class="top">
+  <div class="marca"><img src="/icons/icon-192.png" alt="" width="34" height="34"><span class="marca-txt"><span class="nombre"><b>Read</b>Page</span><small>by <em>Nesux</em> and <em class="cj">CJ Junior</em></small></span></div>
+  <div class="top-acc">
+    <button class="btn-color" id="b-paleta" title="Pulsa para cambiar los colores de la app"><i></i><span id="b-paleta-txt">VS Code oscuro</span></button>
+    <button class="instalar" id="b-instalar" title="Instalar ReadPage en este equipo"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>App</button>
+    <button class="ico" id="b-tema" title="Tema claro / oscuro">🌓</button>
+    <button class="ico" id="b-ajustes" title="Voces y ajustes">⚙️</button>
+  </div>
+</header>
+
+<div class="aviso-nav" id="aviso-nav" hidden>
+  <span id="aviso-txt">⚠️ Estás dentro de otra app (WhatsApp, Facebook…) y aquí <b>no hay voz para leer</b>.</span>
+  <a class="prim" id="b-chrome" href="#">Abrir en Chrome</a>
+</div>
+
+<nav class="pestanas" id="pestanas">
+  <button data-p="cola" class="act">📋 Cola</button>
+  <button data-p="lector">📖 Leyendo</button>
+  <button data-p="agregar">➕ Agregar</button>
+</nav>
+
+<main class="app">
+  <aside class="col-izq">
+    <section class="card" id="p-agregar">
+      <div class="seg">
+        <button data-t="links" class="act">Enlaces</button>
+        <button data-t="archivos">Archivos</button>
+        <button data-t="sitio">Sitio web</button>
+      </div>
+      <div id="t-links">
+        <textarea id="in-links" rows="4" placeholder="Pega uno o varios enlaces (uno por línea, o un texto que los contenga): noticias, artículos o videos (YouTube, Vimeo, TikTok…). ReadPage los separa solo en Lecturas y Videos."></textarea>
+        <button class="prim" id="b-agregar">📋 Pegar</button>
+      </div>
+      <div id="t-archivos" hidden>
+        <label class="soltar" id="zona-archivos">
+          <input type="file" id="in-archivos" multiple>
+          <span class="soltar-ico">📎</span>
+          <b>Toca para elegir archivos o arrástralos aquí</b>
+          <small>PDF · Word (.docx) · Libros EPUB · Imágenes y fotos de texto · TXT, Markdown, HTML, subtítulos</small>
+        </label>
+        <div class="dos-botones">
+          <button class="prim" id="b-camara">📷 Tomar foto</button>
+          <button class="prim" id="b-pegar-img">📋 Pegar imagen</button>
+        </div>
+        <div class="zona-pegar" id="zona-pegar" contenteditable="true" spellcheck="false" autocorrect="off" aria-label="Pega aquí la imagen" data-ayuda="📋 Clic derecho aquí → Pegar (o Ctrl+V)"></div>
+        <input type="file" id="in-camara" accept="image/*" capture="environment" hidden>
+        <p class="ayuda">📲 En Android también puedes enviarle imágenes, textos y PDF desde <b>WhatsApp</b>, la <b>Galería</b> o cualquier app: toca <b>Compartir → ReadPage</b> (con la app instalada).</p>
+        <p class="ayuda">Los archivos se convierten a texto en tu propio equipo: no se suben a ningún servidor. Las imágenes y los PDF escaneados se leen con reconocimiento de texto (OCR).</p>
+      </div>
+      <div id="t-sitio" hidden>
+        <input id="in-sitio" type="url" inputmode="url" placeholder="https://ejemplo.com">
+        <div class="dos-botones">
+          <button class="prim" id="b-pegar-sitio">📋 Pegar</button>
+          <button class="prim" id="b-sitio">🔎 Buscar sus páginas</button>
+        </div>
+        <p class="ayuda">Toca «Pegar» y se buscan solas las noticias y páginas del sitio; luego eliges cuáles leer.</p>
+      </div>
+    </section>
+
+    <section class="card" id="p-cola">
+      <div class="cola-cab">
+        <h2>Cola de lectura</h2>
+        <span class="cola-acc">
+          <button class="txt" id="b-compartir" title="Crear un enlace para enviar esta lista">🔗 Compartir</button>
+          <button class="txt" id="b-vaciar" title="Quitar lecturas de la cola">🧹 Limpiar</button>
+          <button class="txt" id="b-historial" title="Lo que ya leíste y lo que borraste">🕘 Historial</button>
+        </span>
+      </div>
+      <div class="seg vista" id="vista-cola">
+        <button data-v="lecturas" class="act">📖 Lecturas <span id="n-lec"></span></button>
+        <button data-v="videos">🎬 Videos <span id="n-vid"></span></button>
+      </div>
+      <div class="resumen" id="resumen"></div>
+      <ol class="cola" id="cola"></ol>
+      <p class="vacio" id="cola-vacia">Tu cola está vacía. Agrega enlaces o un sitio completo para empezar a escuchar.</p>
+    </section>
+  </aside>
+
+  <section class="card lector" id="p-lector">
+    <div class="lector-cab" id="lector-cab"><p class="vacio">Elige una lectura de la cola y pulsa ▶.</p></div>
+    <div class="video-caja" id="video-caja" hidden><div id="vplayer"></div></div>
+    <p class="video-nota" id="video-nota" hidden></p>
+    <article class="texto" id="texto"></article>
+  </section>
+</main>
+
+<div class="ml-barra" id="ml-barra" hidden>
+  <span class="ml-punto"></span>
+  <span class="ml-txt" id="ml-txt">Manos libres</span>
+  <button class="txt" id="ml-apagar" title="Apagar manos libres">✕</button>
+</div>
+
+<footer class="reproductor" id="reproductor">
+  <div class="rep-info">
+    <div class="rep-tit" id="rep-tit">ReadPage</div>
+    <div class="rep-sub" id="rep-sub">Agrega lecturas para empezar</div>
+    <div class="barra"><span id="rep-barra"></span></div>
+  </div>
+  <div class="rep-ctrl">
+    <button id="b-ant-lec" title="Lectura anterior">⏮⏮</button>
+    <button id="b-ant" title="Párrafo anterior">⏮<span class="et"> Párrafo</span></button>
+    <button id="b-play" class="play" title="Leer / pausar">▶</button>
+    <button id="b-sig" title="Párrafo siguiente"><span class="et">Párrafo </span>⏭</button>
+    <button id="b-sig-lec" title="Siguiente lectura">⏭⏭</button>
+    <button id="b-vel" title="Velocidad">1×</button>
+    <button id="b-manos" title="Manos libres: hablarle a ReadPage">🎙️</button>
+  </div>
+</footer>
+
+<!-- Selección de páginas de un sitio -->
+<dialog id="d-sitio">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3 id="ds-tit">Páginas del sitio</h3><button class="ico" value="x">✕</button></div>
+    <input id="ds-buscar" type="search" placeholder="Buscar por título o dirección">
+    <div class="ds-acc"><button type="button" class="txt" id="ds-todas">Marcar todas</button><button type="button" class="txt" id="ds-ninguna">Ninguna</button><span id="ds-cuenta"></span></div>
+    <ul class="ds-lista" id="ds-lista"></ul>
+    <button type="button" class="prim" id="ds-agregar">➕ Agregar seleccionadas</button>
+  </form>
+</dialog>
+
+<!-- Ajustes -->
+<dialog id="d-ajustes">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3>Voces y ajustes</h3><button class="ico" value="x">✕</button></div>
+    <label>🌐 Leer en<select id="aj-idioma">
+      <option value="orig">Idioma original de cada página</option>
+      <option value="es">Español</option><option value="en">English</option><option value="pt">Português</option>
+      <option value="fr">Français</option><option value="it">Italiano</option><option value="de">Deutsch</option>
+    </select></label>
+    <p class="ayuda">Si eliges un idioma, las páginas en otros idiomas se traducen antes de leerlas.</p>
+    <label>🎧 Motor de voz<select id="aj-motor">
+      <option value="audio">Voz de ReadPage · sigue sonando con la pantalla apagada (recomendada)</option>
+      <option value="navegador">Voces de este teléfono o navegador</option>
+    </select></label>
+    <p class="ayuda" id="aj-motor-ayuda">La voz de ReadPage es audio de verdad: puedes bloquear el teléfono o cambiar de app y sigue leyendo, con controles en la pantalla bloqueada. Español, inglés, portugués, francés, italiano y alemán.</p>
+    <div id="aj-voz-srv">
+      <label>📖 Voz de lectura en español<select id="aj-voz-es">
+        <option value="claude">Claude · hombre · México (recomendada)</option>
+        <option value="ald">Ald · hombre · México</option>
+        <option value="daniela">Daniela · mujer · Argentina</option>
+        <option value="sharvard-f">Sharvard · mujer · España</option>
+        <option value="sharvard-m">Sharvard · hombre · España</option>
+        <option value="davefx">Davefx · hombre · España</option>
+      </select></label>
+      <label>🎙️ Voz de narración, masculina (presenta cada lectura)<select id="aj-voz-es-pres">
+        <option value="narrador">Narrador · voz grave · México (recomendada)</option>
+        <option value="claude">Claude · hombre · México</option>
+        <option value="ald">Ald · hombre · México</option>
+        <option value="sharvard-m">Sharvard · hombre · España</option>
+        <option value="davefx">Davefx · hombre · España</option>
+      </select></label>
+      <p class="ayuda">Al elegir una voz la oyes enseguida. Todas leen a un ritmo pausado; si la quieres más rápida o más lenta usa el botón de velocidad (1×) del reproductor.</p>
+    </div>
+    <div id="aj-voces-nav">
+      <label>🎙️ Voz de presentación (del navegador)<select id="aj-vpres"></select></label>
+      <label>📖 Voz de lectura (del navegador)<select id="aj-vlec"></select></label>
+      <p class="ayuda">En «Automática» se elige la mejor voz natural del idioma de cada página. En Edge suenan mejor (voces naturales de Microsoft).</p>
+    </div>
+    <fieldset class="ml-aj">
+      <legend>🎙️ Manos libres</legend>
+      <p class="ayuda">Toca 🎙️ en el reproductor para encenderlo. Solo obedece las frases que empiezan con tu palabra de activación, así no hace caso a otras personas ni a la radio.</p>
+      <label>Palabra para darle una orden<input id="aj-ml-activar" maxlength="30" autocomplete="off" placeholder="Lector"></label>
+      <p class="ayuda">Ejemplo: «Lector, léeme los titulares de deportes».</p>
+      <label>Palabra para callarlo<input id="aj-ml-callar" maxlength="30" autocomplete="off" placeholder="Silencio"></label>
+      <label>Palabra para que deje de escuchar<input id="aj-ml-descansar" maxlength="30" autocomplete="off" placeholder="Descansa"></label>
+      <label class="chk"><input type="checkbox" id="aj-ml-confirmar" checked> Preguntar antes de quitar algo de la cola</label>
+      <label>Oído<select id="aj-ml-motor">
+        <option value="auto">Automático: sin pitido en Android (recomendado)</option>
+        <option value="propio">Oído de ReadPage: sin pitido, envía solo frases cortas</option>
+        <option value="google">Google del navegador: gratis, pero en Android pita</option>
+      </select></label>
+      <p class="ayuda">Usa palabras poco comunes (por ejemplo, un nombre) para que no se active por error. Funciona con la app abierta en pantalla, en Chrome o Edge.</p>
+    </fieldset>
+    <label class="chk"><input type="checkbox" id="aj-presentar" checked> Presentar cada lectura antes de leerla</label>
+    <label class="chk"><input type="checkbox" id="aj-pantalla" checked> Mantener la pantalla encendida mientras lee</label>
+    <button type="button" class="txt" id="aj-probar">🔊 Probar voces</button>
+    <div class="ds-acc" style="justify-content:space-between"><span class="ayuda" id="aj-cuenta" style="margin:0"></span><span><button type="button" class="txt" id="b-perfil">✏️ Mi perfil</button> <button type="button" class="txt" id="b-salir">🚪 Cerrar sesión</button></span></div>
+    <p class="ayuda" style="text-align:center;margin:0">ReadPage · versión 42</p>
+  </form>
+</dialog>
+
+<!-- Mi perfil: nombre, WhatsApp y correo esperan aprobación; la contraseña cambia al instante -->
+<dialog id="d-perfil">
+  <form class="dlg" id="dp-form">
+    <div class="dlg-cab"><h3>✏️ Mi perfil</h3><button type="button" class="ico" id="dp-cerrar">✕</button></div>
+    <div id="dp-pendiente" class="ayuda" hidden style="border:2px solid rgba(251,191,36,.6);background:rgba(251,191,36,.1);border-radius:12px;padding:10px 12px;margin:0"></div>
+    <label>Nombre completo<input id="dp-nombre" autocomplete="name" maxlength="80"></label>
+    <label>WhatsApp<input id="dp-whatsapp" type="tel" inputmode="tel" autocomplete="tel"></label>
+    <label>Correo<input id="dp-correo" type="email" autocomplete="email"></label>
+    <p class="ayuda" style="margin:0">Por seguridad, el nombre, el WhatsApp y el correo se cambian cuando el administrador lo aprueba.</p>
+    <label>Contraseña nueva <small style="font-weight:600;color:var(--muted)">(se cambia al instante; déjala vacía si no la quieres cambiar)</small><input id="dp-nueva" type="password" minlength="8" autocomplete="new-password"></label>
+    <label>Tu contraseña actual <small style="font-weight:600;color:var(--muted)">(para confirmar que eres tú)</small><input id="dp-actual" type="password" required autocomplete="current-password"></label>
+    <p id="dp-msg" class="ayuda" hidden style="margin:0;font-weight:700"></p>
+    <button type="submit" class="prim" id="dp-guardar">GUARDAR</button>
+  </form>
+</dialog>
+
+<!-- Compartir la lista -->
+<dialog id="d-compartir">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3>🔗 Compartir lecturas</h3><button class="ico" value="x">✕</button></div>
+    <label>Nombre de la lista<input id="dc-nombre" maxlength="80" placeholder="Ej.: Curso de baterías · Semana 1"></label>
+    <div id="dc-elegir">
+      <p class="ayuda" style="margin:0 0 6px">Marca las lecturas que quieres compartir:</p>
+      <div class="ds-acc"><button type="button" class="txt" id="dc-todas">Todas</button><button type="button" class="txt" id="dc-pend">Solo pendientes</button><button type="button" class="txt" id="dc-ninguna">Ninguna</button><span id="dc-cuenta"></span></div>
+      <ul class="ds-lista" id="dc-lista"></ul>
+    </div>
+    <p class="ayuda" id="dc-info"></p>
+    <button type="button" class="prim" id="dc-crear">Crear enlace</button>
+    <div id="dc-res" hidden>
+      <input id="dc-link" readonly>
+      <div class="ds-acc"><button type="button" class="prim" id="dc-copiar">📋 Copiar enlace</button><button type="button" class="txt" id="dc-enviar">📤 Enviar…</button></div>
+    </div>
+  </form>
+</dialog>
+
+<!-- Abrir una lista recibida -->
+<dialog id="d-recibida">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3 id="dr-tit">Lista compartida</h3><button class="ico" value="x">✕</button></div>
+    <p class="ayuda" id="dr-info"></p>
+    <ul class="ds-lista" id="dr-lista"></ul>
+    <div class="ds-acc"><button type="button" class="prim" id="dr-agregar">➕ Agregar a mi cola</button><button type="button" class="txt" id="dr-reemplazar">Reemplazar mi cola</button></div>
+  </form>
+</dialog>
+
+<!-- Limpiar la cola -->
+<dialog id="d-limpiar">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3>🧹 Limpiar la cola</h3><button class="ico" value="x">✕</button></div>
+    <p class="ayuda" style="margin:0">Marca lo que quieres quitar. Lo que no marques se queda guardado.</p>
+    <div class="ds-acc"><button type="button" class="txt" id="dl-todas">Todas</button><button type="button" class="txt" id="dl-leidas">Solo las escuchadas</button><button type="button" class="txt" id="dl-ninguna">Ninguna</button><span id="dl-cuenta"></span></div>
+    <ul class="ds-lista" id="dl-lista"></ul>
+    <button type="button" class="prim peligro" id="dl-quitar">Quitar seleccionadas</button>
+  </form>
+</dialog>
+
+<!-- Historial y papelera -->
+<dialog id="d-historial">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3>🕘 Historial</h3><button class="ico" value="x">✕</button></div>
+    <div class="seg" id="dh-tabs"><button type="button" data-h="leidas" class="act">📖 Leídas</button><button type="button" data-h="papelera">🗑️ Papelera</button></div>
+    <div id="dh-leidas">
+      <p class="ayuda" style="margin:0 0 6px">Todo lo que has escuchado, con fecha y hora. Toca ↺ para volver a ponerla en la cola.</p>
+      <ul class="ds-lista hist" id="dh-lista-l"></ul>
+      <div class="ds-acc"><button type="button" class="txt" id="dh-borrar-hist">Borrar historial</button><span id="dh-cuenta-l"></span></div>
+    </div>
+    <div id="dh-papelera" hidden>
+      <p class="ayuda" style="margin:0 0 6px">Lo que quitaste de la cola. Marca lo que quieres recuperar.</p>
+      <div class="ds-acc"><button type="button" class="txt" id="dh-todas">Todas</button><button type="button" class="txt" id="dh-ninguna">Ninguna</button><span id="dh-cuenta-p"></span></div>
+      <ul class="ds-lista hist" id="dh-lista-p"></ul>
+      <button type="button" class="prim" id="dh-restaurar">↺ Restaurar seleccionadas</button>
+      <button type="button" class="txt" id="dh-vaciar" style="margin-top:8px">Vaciar papelera</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Instalar la app -->
+<dialog id="d-instalar">
+  <form method="dialog" class="dlg">
+    <div class="dlg-cab"><h3>📲 Instalar ReadPage</h3><button class="ico" value="x">✕</button></div>
+    <p class="ayuda" style="margin:0">Queda con su ícono en la pantalla de inicio y se abre como una app, sin barra del navegador.</p>
+    <div id="di-pasos"></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast"></div>
+<script src="/archivos.js?v=56"></script>
+<script src="/app.js?v=56"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ReadPage · Nesux</title>
+<meta name="description" content="Escucha cualquier página web, PDF, libro o foto de texto en voz natural. Cola de lecturas, traductor y listas para compartir.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ReadPage · Nesux">
+<meta property="og:title" content="ReadPage · Escucha cualquier página en voz">
+<meta property="og:description" content="Escucha cualquier página web, PDF, libro o foto de texto en voz natural. Cola de lecturas, traductor y listas para compartir.">
+<meta property="og:image" content="https://readpage.nesuxglobalbusinessrd.com/og-readpage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://readpage.nesuxglobalbusinessrd.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B1220">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css?v=40">
+<style>
+  .acc { max-width: 980px; margin: 0 auto; padding: 32px 16px 60px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: start; }
+  .acc-hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 10px 0 6px; line-height: 1.1; }
+  .acc-hero h1 b { background: linear-gradient(90deg, #007ACC, #38BDF8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .acc-hero .by { color: var(--muted); font-size: .9rem; } .acc-hero .by em { font-style: normal; font-weight: 800; color: var(--acento); } .acc-hero .by em.cj { color: var(--app); }
+  .acc-hero p { color: var(--suave); line-height: 1.65; text-align: justify; }
+  .acc-lista { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+  .acc-lista li { background: var(--bg2); border: 1px solid var(--morado); border-radius: 14px; padding: 12px 14px; color: var(--suave); }
+  .acc-lista b { color: var(--txt); }
+  .acc-card { background: var(--bg2); border: 1px solid var(--morado); border-radius: 18px; padding: 20px; box-shadow: var(--sombra); position: sticky; top: 20px; }
+  .acc-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--bg3); border-radius: 12px; padding: 4px; margin-bottom: 16px; }
+  /* Dos colores: verde = Iniciar sesión (izquierda, abierto al llegar); rojo = Inscribirme (derecha). */
+  .acc-tabs button { border: 2px solid transparent; border-radius: 9px; padding: 9px; font-weight: 800; transition: background .15s, color .15s; }
+  .acc-tabs button[data-m=entrar] { color: #22c55e; border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.08); }
+  .acc-tabs button[data-m=registro] { color: #ef4444; border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.08); }
+  .acc-tabs button[data-m=entrar].act { background: #16a34a; border-color: #16a34a; color: #fff; box-shadow: 0 2px 10px rgba(22,163,74,.35); }
+  .acc-tabs button[data-m=registro].act { background: #dc2626; border-color: #dc2626; color: #fff; box-shadow: 0 2px 10px rgba(220,38,38,.35); }
+  #f-entrar .prim { background: #16a34a; } #f-registro .prim { background: #dc2626; }
+  .acc-card label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 10px; color: var(--txt); }
+  .acc-card input { margin-top: 5px; }
+  .acc-err { background: color-mix(in srgb, var(--rojo) 14%, transparent); color: var(--rojo); border-radius: 12px; padding: 10px 12px; font-size: .9rem; margin: 6px 0; }
+  .acc-ok { text-align: center; } .acc-ok .ico-g { font-size: 2.6rem; }
+  .acc-nota { color: var(--muted); font-size: .82rem; text-align: center; margin-top: 10px; }
+  @media (max-width: 820px) { .acc { grid-template-columns: 1fr; } .acc-card { position: static; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="marca"><img src="/icons/icon-192.png" alt="" width="34" height="34"><span class="marca-txt"><span class="nombre"><b>Read</b>Page</span><small>by <em>Nesux</em> and <em class="cj">CJ Junior</em></small></span></div>
+</header>
+<main class="acc">
+  <section class="acc-hero">
+    <p class="by">Acceso solo con inscripción aprobada</p>
+    <h1>Escucha cualquier página en voz con <b>Read</b>Page</h1>
+    <p>Pega enlaces, sube un PDF, un libro o una foto de un texto, y ReadPage te lo lee con una voz natural, aunque bloquees el teléfono. Arma tu cola de lecturas, tradúcelas al idioma que quieras y compártelas por enlace.</p>
+    <ul class="acc-lista">
+      <li>🔗 <b>Enlaces y sitios completos:</b> elige qué páginas escuchar.</li>
+      <li>📎 <b>Archivos:</b> PDF, Word, libros EPUB, imágenes y fotos de texto.</li>
+      <li>🎧 <b>Voz de ReadPage:</b> sigue sonando con la pantalla apagada.</li>
+      <li>🌐 <b>Traductor:</b> escucha cualquier página en tu idioma.</li>
+      <li>🕘 <b>Historial y papelera:</b> nada de lo que borras se pierde.</li>
+    </ul>
+  </section>
+  <section class="acc-card" id="caja">
+    <div class="acc-tabs" role="tablist">
+      <button type="button" role="tab" data-m="entrar" class="act">Iniciar sesión</button>
+      <button type="button" role="tab" data-m="registro">Inscribirme</button>
+    </div>
+    <form id="f-registro" hidden>
+      <label>Nombre completo<input name="nombre" required autocomplete="name"></label>
+      <label>WhatsApp<input name="whatsapp" type="tel" inputmode="tel" required autocomplete="tel" placeholder="809 000 0000"></label>
+      <label>Correo<input name="correo" type="email" required autocomplete="email"></label>
+      <label>Contraseña (mínimo 8 caracteres)<input name="clave" type="password" minlength="8" required autocomplete="new-password"></label>
+      <div class="acc-err" hidden></div>
+      <button class="prim" type="submit">ENVIAR MI INSCRIPCIÓN</button>
+      <p class="acc-nota">Tu inscripción será revisada y aprobada por el administrador.</p>
+    </form>
+    <form id="f-entrar">
+      <label>Correo o WhatsApp<input name="usuario" required autocomplete="username"></label>
+      <label>Contraseña<input name="clave" type="password" required autocomplete="current-password"></label>
+      <div class="acc-err" hidden></div>
+      <button class="prim" type="submit">ENTRAR A READPAGE</button>
+    </form>
+  </section>
+</main>
+<script>
+(function () {
+  // Tema guardado de la app (claro u oscuro).
+  try { var p = localStorage.getItem('readpage.paleta') || ''; if (/claro|light|GitHub|Quiet|día/i.test(p)) document.documentElement.dataset.theme = 'light'; } catch (_) {}
+  var caja = document.getElementById('caja'), fr = document.getElementById('f-registro'), fe = document.getElementById('f-entrar');
+  function modo(m) {
+    caja.querySelectorAll('.acc-tabs button').forEach(function (b) { b.classList.toggle('act', b.dataset.m === m); });
+    fr.hidden = m !== 'registro'; fe.hidden = m !== 'entrar';
+    caja.querySelectorAll('input[type=password]').forEach(function (i) { i.value = ''; });
+    caja.querySelectorAll('.acc-err').forEach(function (e) { e.hidden = true; });
+  }
+  caja.querySelectorAll('.acc-tabs button').forEach(function (b) { b.addEventListener('click', function () { modo(b.dataset.m); }); });
+  function enviar(f, accion, alTerminar) {
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = f.querySelector('.acc-err'), btn = f.querySelector('button[type=submit]'), d = { accion: accion };
+      new FormData(f).forEach(function (v, k) { d[k] = v; });
+      err.hidden = true; btn.disabled = true;
+      fetch('/api/cuenta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+        .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'No se pudo completar.'); return j; }); })
+        .then(alTerminar)
+        .catch(function (e) { err.textContent = e.message; err.hidden = false; })
+        .finally(function () { btn.disabled = false; });
+    });
+  }
+  function pendiente(nombre, recien) {
+    caja.innerHTML = '<div class="acc-ok"><div class="ico-g">' + (recien ? '✅' : '⏳') + '</div><h2>' + (recien ? '¡Inscripción recibida!' : 'Inscripción en revisión') + '</h2>' +
+      '<p class="ayuda">' + (nombre ? nombre.split(' ')[0] + ', tu' : 'Tu') + ' inscripción está en revisión. Cuando sea aprobada podrás entrar con tu correo o WhatsApp y tu contraseña.</p>' +
+      '<button class="txt" id="volver" type="button" style="margin-top:12px">Volver</button></div>';
+    document.getElementById('volver').onclick = function () { fetch('/api/cuenta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"accion":"salir"}' }).finally(function () { location.reload(); }); };
+  }
+  enviar(fr, 'registro', function (j) { pendiente(j.usuario && j.usuario.nombre, true); });
+  enviar(fe, 'entrar', function (j) { if (j.usuario && j.usuario.estado === 'aprobado') location.reload(); else pendiente(j.usuario && j.usuario.nombre, false); });
+  // Si ya entró pero sigue pendiente, se le muestra el aviso.
+  fetch('/api/cuenta').then(function (r) { return r.json(); }).then(function (d) { if (d.usuario && d.usuario.estado === 'pendiente') pendiente(d.usuario.nombre, false); }).catch(function () {});
+})();
+</script>
+</body>
+</html>

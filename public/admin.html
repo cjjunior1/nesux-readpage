@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administración · ReadPage</title>
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="stylesheet" href="/styles.css?v=40">
+<style>
+  .adm { max-width: 980px; margin: 0 auto; padding: 24px 16px 60px; }
+  .adm h1 { margin: 4px 0 16px; } .adm .sup { color: var(--ambar); font-weight: 800; font-size: .75rem; letter-spacing: .2em; }
+  .fila { background: var(--bg2); border: 1px solid var(--morado); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: flex-start; }
+  .fila .n { font-weight: 800; color: var(--txt); } .fila .d { color: var(--muted); font-size: .88rem; } .fila .d a { color: var(--acento); }
+  .chip { display: inline-block; font-size: .7rem; font-weight: 800; padding: 2px 8px; border-radius: 99px; margin-left: 6px; }
+  .chip.pendiente { background: rgba(251,191,36,.18); color: #d97706; } .chip.aprobado { background: rgba(16,185,129,.18); color: #059669; } .chip.rechazado { background: rgba(248,113,113,.18); color: #dc2626; }
+  .acc { display: flex; flex-wrap: wrap; gap: 6px; }
+  .b { border: none; border-radius: 10px; padding: 7px 12px; font-weight: 800; font-size: .8rem; color: #fff; cursor: pointer; }
+  .b.ok { background: #10b981; } .b.no { background: #ef4444; } .b.ver { background: #7c3aed; } .b.gris { background: var(--bg3); color: var(--txt); border: 1px solid var(--borde); }
+  .filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .filtros button { border: 1px solid var(--borde); background: var(--bg2); color: var(--suave); border-radius: 99px; padding: 5px 12px; font-weight: 800; font-size: .78rem; }
+  .filtros button.act { background: var(--grad); color: #fff; border-color: transparent; }
+  .login { max-width: 360px; margin: 60px auto; background: var(--bg2); border: 1px solid var(--morado); border-radius: 18px; padding: 22px; }
+  .cambio { margin-top: 8px; border: 2px solid rgba(251,191,36,.6); background: rgba(251,191,36,.1); border-radius: 12px; padding: 8px 10px; font-size: .88rem; color: var(--suave); }
+  .err { color: var(--rojo); font-size: .9rem; margin-top: 8px; }
+  .bit li { list-style: none; background: var(--bg2); border: 1px solid var(--borde); border-radius: 12px; padding: 8px 12px; margin-bottom: 6px; font-size: .88rem; color: var(--suave); }
+  .bit { padding: 0; } .bit time { color: var(--muted); font-size: .78rem; margin-right: 8px; }
+</style>
+</head>
+<body>
+<main class="adm" id="app"><p class="ayuda">Cargando…</p></main>
+<script>
+(function () {
+  var app = document.getElementById('app'), filtro = 'todos';
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var f = function (iso) { return iso ? new Date(iso).toLocaleString('es-DO', { dateStyle: 'short', timeStyle: 'short' }) : '—'; };
+  var api = function (b) { return fetch('/api/admin' + (b && b.id && !b.accion ? '?id=' + b.id : ''), b && b.accion ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) } : { cache: 'no-store' }); };
+
+  function entrar() {
+    app.innerHTML = '<form class="login" id="fl"><h2 style="margin-top:0">Administración de ReadPage</h2><label style="display:block;font-weight:700">Clave de administración<input type="password" id="cl" autocomplete="current-password" style="margin-top:6px"></label><div class="err" id="er"></div><button class="prim" type="submit">Entrar</button></form>';
+    document.getElementById('fl').onsubmit = function (ev) {
+      ev.preventDefault();
+      api({ accion: 'entrar', clave: document.getElementById('cl').value }).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error); }); }).then(lista).catch(function (e) { document.getElementById('er').textContent = e.message; });
+    };
+  }
+
+  function lista() {
+    api().then(function (r) { if (r.status === 401) { entrar(); return null; } return r.json(); }).then(function (d) {
+      if (!d) return;
+      var us = d.usuarios, cuenta = function (e) { return us.filter(function (u) { return e === 'cambios' ? !!u.cambio : u.estado === e; }).length; };
+      var vis = us.filter(function (u) { return filtro === 'todos' || (filtro === 'cambios' ? !!u.cambio : u.estado === filtro); });
+      app.innerHTML = '<p class="sup">ADMINISTRACIÓN</p><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h1>ReadPage · Usuarios</h1><button class="b gris" id="salir" type="button">Salir</button></div>' +
+        '<div class="filtros">' + [['todos', 'Todos (' + us.length + ')'], ['pendiente', 'Pendientes (' + cuenta('pendiente') + ')'], ['aprobado', 'Aprobados (' + cuenta('aprobado') + ')'], ['rechazado', 'Rechazados (' + cuenta('rechazado') + ')'], ['cambios', 'Cambios de perfil (' + cuenta('cambios') + ')']].map(function (x) { return '<button type="button" data-f="' + x[0] + '"' + (filtro === x[0] ? ' class="act"' : '') + '>' + x[1] + '</button>'; }).join('') + '</div>' +
+        (vis.length ? '' : '<p class="ayuda">No hay inscripciones en esta lista.</p>') +
+        vis.map(function (u) {
+          return '<div class="fila"><div><span class="n">' + esc(u.nombre) + '</span><span class="chip ' + u.estado + '">' + u.estado.toUpperCase() + '</span>' +
+            '<div class="d">' + esc(u.correo) + ' · <a href="https://wa.me/' + esc(u.whatsapp) + '" target="_blank" rel="noopener">WhatsApp ' + esc(u.whatsapp) + '</a></div>' +
+            '<div class="d">Inscrito: ' + f(u.creado) + ' · Último acceso: ' + f(u.ultimoAcceso) + '</div>' +
+            (u.cambio ? '<div class="cambio">⏳ <b>Pide cambiar su perfil:</b> ' + [u.cambio.nombre && 'nombre → <b>' + esc(u.cambio.nombre) + '</b>', u.cambio.whatsapp && 'WhatsApp → <b>' + esc(u.cambio.whatsapp) + '</b>', u.cambio.correo && 'correo → <b>' + esc(u.cambio.correo) + '</b>'].filter(Boolean).join(' · ') +
+              '<div class="acc" style="margin-top:8px"><button class="b ok" data-a="aprobar-cambio" data-id="' + u.id + '">Aprobar cambio</button><button class="b no" data-a="rechazar-cambio" data-id="' + u.id + '">Rechazar cambio</button></div></div>' : '') +
+            '</div><div class="acc">' +
+            (u.estado !== 'aprobado' ? '<button class="b ok" data-a="aprobar" data-id="' + u.id + '">Aprobar</button>' : '') +
+            (u.estado !== 'rechazado' ? '<button class="b no" data-a="rechazar" data-id="' + u.id + '">' + (u.estado === 'aprobado' ? 'Quitar acceso' : 'Rechazar') + '</button>' : '<button class="b gris" data-a="pendiente" data-id="' + u.id + '">A pendiente</button>') +
+            '<button class="b ver" data-ver="' + u.id + '">Historial</button></div></div>';
+        }).join('');
+      document.getElementById('salir').onclick = function () { api({ accion: 'salir' }).then(entrar); };
+      app.querySelectorAll('[data-f]').forEach(function (b) { b.onclick = function () { filtro = b.dataset.f; lista(); }; });
+      app.querySelectorAll('[data-a]').forEach(function (b) { b.onclick = function () { api({ accion: b.dataset.a, id: b.dataset.id }).then(function (r) { return r.json(); }).then(function (j) { if (j.error) alert(j.error); lista(); }); }; });
+      app.querySelectorAll('[data-ver]').forEach(function (b) { b.onclick = function () { historial(b.dataset.ver); }; });
+    });
+  }
+
+  var NOMBRES = { inscripcion: 'Se inscribió', 'estado-cuenta': 'Cambio de estado', acceso: 'Entró a ReadPage', 'clave-cambiada': 'Cambió su contraseña', 'cambio-solicitado': 'Pidió cambiar su perfil', 'cambio-aprobado': 'Cambio de perfil aprobado', 'cambio-rechazado': 'Cambio de perfil rechazado' };
+  var detalle = function (x) { return [x.estado, x.nombre && 'nombre «' + x.nombre + '»', x.whatsapp && 'WhatsApp ' + x.whatsapp, x.correo && 'correo ' + x.correo].filter(Boolean).join(' · '); };
+  function historial(id) {
+    api({ id: id }).then(function (r) { return r.json(); }).then(function (d) {
+      app.innerHTML = '<button class="b gris" id="volver" type="button">← Volver a la lista</button><h1>' + esc(d.usuario.nombre) + '</h1><p class="ayuda">' + esc(d.usuario.correo) + ' · ' + esc(d.usuario.whatsapp) + ' · ' + esc(d.usuario.estado) + '</p>' +
+        '<ul class="bit">' + d.bitacora.slice().reverse().map(function (x) { return '<li><time>' + f(x.t) + '</time><b>' + esc(NOMBRES[x.tipo] || x.tipo) + '</b> ' + esc(x.tipo === 'inscripcion' ? (x.estado || '') : detalle(x)) + '</li>'; }).join('') + '</ul>';
+      document.getElementById('volver').onclick = lista;
+    });
+  }
+  lista();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{
+  "name": "ReadPage · Nesux",
+  "short_name": "ReadPage",
+  "description": "Escucha cualquier página web, PDF, libro o foto de texto en voz: cola de lecturas, traductor y listas para compartir.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B1220",
+  "theme_color": "#0B1220",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "share_target": {
+    "action": "/compartir",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "archivos",
+          "accept": [
+            "image/*",
+            "application/pdf",
+            ".pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ".docx",
+            "application/epub+zip",
+            ".epub",
+            "text/plain",
+            ".txt",
+            ".md",
+            "text/html"
+          ]
+        }
+      ]
+    }
+  },
+  "id": "/",
+  "screenshots": [
+    {
+      "src": "/shots/movil-1.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tu cola de lecturas"
+    },
+    {
+      "src": "/shots/movil-2.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Leyendo con imágenes"
+    },
+    {
+      "src": "/shots/pc-1.png",
+      "sizes": "2560x1600",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "ReadPage en la computadora"
+    }
+  ],
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://readpage.nesuxglobalbusinessrd.com/manifest.webmanifest"
+    }
+  ]
+}
